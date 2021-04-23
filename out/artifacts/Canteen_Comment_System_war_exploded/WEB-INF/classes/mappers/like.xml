@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dao.LikeDao">
+<!--查询是否已经给此菜品点过赞了-->
+    <select id="query_dish" parameterType="integer" resultType="integer">
+        select typeid from likee where userid=#{userId} and typeid=#{typeId} and type=1
+    </select>
+<!--    给此菜品点赞-->
+<!--    typeId为参数值,typeid为数据库中的字段名-->
+    <insert id="add_like" parameterType="integer" >
+       insert  into likee (userid,type,typeid) values(#{userId},#{type},#{typeId});
+       <selectKey keyProperty="typeid" order="AFTER" resultType="java.lang.Integer">
+           SELECT LAST_INSERT_ID()
+       </selectKey>
+    </insert>
+<!--    取消菜品点赞-->
+    <delete id="delete_like"  parameterType="integer">
+        delete  from likee where typeid=#{typeId} and userid=#{userId} and type=1
+    </delete>
+<!--    给菜品点赞之后的后续操作-->
+    <update id="update_dish_add" parameterType="integer">
+    update dish set likes =
+    (SELECT COUNT(typeid) FROM likee WHERE typeid= #{typeId})
+    where dishid=(#{typeId}-100);
+    </update>
+    <!--    给菜品取消点赞之后的后续操作-->
+    <update id="update_dish_sub" parameterType="integer">
+        update dish set likes =
+    (SELECT COUNT(typeid) FROM likee WHERE typeid= #{typeId})
+    where dishid=(#{typeId}-100);
+    </update>
+
+
+
+
+<!--************以下方法是对评论的操作*****************-->
+    <!--查询是否已经给此评论点过赞了-->
+    <select id="query_comment" parameterType="integer" resultType="integer">
+        select typeid from likee where userid=#{userId} and typeid=#{typeId} and type=2
+    </select>
+
+<!--    给评论点赞以后的后续操作-->
+    <update id="update_comment_add" parameterType="integer">
+    update comment set likes =
+    (SELECT COUNT(typeid) FROM likee WHERE typeid= #{typeId})
+    where comment_id=(#{typeId}-200);
+    </update>
+
+</mapper>

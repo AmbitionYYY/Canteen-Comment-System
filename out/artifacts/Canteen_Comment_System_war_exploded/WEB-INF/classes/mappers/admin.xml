@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dao.AdminDao">
+
+    <select id="selectAdminByAdminname" parameterType="string" resultType="com.bean.Admin">
+        select adminname,adminpassword from admin where adminname=#{adminname}
+    </select>
+    <!--使用分页插件查菜品数据信息：实际上是按页数从数据库中查取数据显示，每换个页数查一次-->
+    <select id="selectAllDishes" resultType="com.bean.Dish">
+        SELECT dishid ,name ,avatar , price ,loc_Canteen ,loc_Window , discription , likes , comments  FROM
+        dish
+    </select>
+<!--    删除评论-->
+    <delete id="deleteCommentBycommentId" parameterType="integer">
+        delete from comment where comment_id=#{commentId}
+    </delete>
+<!--      通过评论id查菜品id(此处查询回评论对象无法接收不知为何)-->
+    <select id="selectCommentBycommentId" parameterType="integer" resultType="integer">
+        select dishid from comment where comment_id = #{commentId}
+    </select>
+
+<!--    更新校园公告的信息-->
+    <update id="updateAnnouncement" parameterType="com.bean.Announcement">
+        update announcement set announcement=#{announcement}, createtime=#{createtime}
+    </update>
+
+<!--    查询所有反馈的信息-->
+    <select id="selectMessage" resultType="com.bean.Message">
+    SELECT
+    mid,
+	feedbackTitle,
+	address,
+	email,
+	phoneNumber,
+	qq,
+	userid,
+	feedbackContent,
+	createtime
+	FROM
+	canteen_db.message
+	where ResolveType = 0
+    </select>
+
+<!--    逻辑删除解决了的反馈-->
+    <update id="removeMessageByMid">
+        update message set ResolveType = 1 where mid=#{mid};
+    </update>
+</mapper>

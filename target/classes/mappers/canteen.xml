@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dao.CanteenDao">
+    <!--    （使用分页插件）查询所有菜品在用户菜品展示界面展示-->
+    <select id="selectUserAllDishes" resultType="com.bean.Dish">
+        SELECT dishid ,name ,avatar , price ,loc_Canteen ,loc_Window , discription , likes , comments  FROM
+        dish
+    </select>
+
+    <!--    插入单个菜品的评论信息-->
+    <insert id="insertCommentInfo" parameterType="com.bean.Comment">
+        insert into comment(username,content,createtime,dishid,score,userid) value
+        (#{username},#{content},#{createtime},#{dishid},#{score},#{userid})
+    </insert>
+<!--    插入菜品的评论信息后应该更新菜品的数据信息-->
+    <update id="updateDishInfo" parameterType="integer">
+        update dish set comments =
+        (select count(username) from comment where dishid=#{dishId} )
+        where dishid=#{dishId};
+    </update>
+
+
+    <!--    通过dishid来从comment表中查询相应的comment信息-->
+    <select id="selectCommentInfoByDishid" parameterType="integer" resultType="com.bean.Comment">
+        select comment_id,username ,content ,createtime ,score,likes from comment where dishid= #{dishid}
+    </select>
+
+<!--    根据评论数查询菜品信息-->
+    <select id="selectRankInfoBycomments" resultType="com.bean.Dish">
+        SELECT * FROM dish ORDER BY comments DESC LIMIT 3;
+    </select>
+
+<!--    根据评分数查询排名第一的菜品信息-->
+    <select id="selectFirstRankInfoByscore" resultType="com.bean.Dish">
+    SELECT * FROM dish WHERE dishid =(SELECT dishid FROM COMMENT GROUP BY  dishid ORDER BY  AVG(score)  DESC LIMIT 1);
+    </select>
+    <!--    根据评分数查询排名第二的菜品信息-->
+    <select id="selectSecondRankInfoByscore" resultType="com.bean.Dish">
+    SELECT * FROM dish WHERE dishid =( SELECT dishid FROM COMMENT GROUP BY  dishid ORDER BY  AVG(score)  DESC LIMIT 1,1);
+    </select>
+    <!--    根据评分数查询排名第三的菜品信息-->
+    <select id="selectThirdRankInfoByscore" resultType="com.bean.Dish">
+   SELECT * FROM dish WHERE dishid =( SELECT dishid FROM COMMENT GROUP BY  dishid ORDER BY  AVG(score)  DESC LIMIT 2,1);
+    </select>
+
+    <select id="selectrankScore" resultType="double">
+            SELECT  ROUND(AVG(score),2) AS '综合评分' FROM COMMENT GROUP BY  dishid ORDER BY  AVG(score)  DESC LIMIT 3 ;
+    </select>
+
+<!--    查询菜品的平均分-->
+<select id="selectAvgScore" parameterType="integer" resultType="double">
+        SELECT ROUND(AVG(score),2) AS '综合评分' FROM COMMENT WHERE  dishid=#{dishid}
+</select>
+<!--    根据点赞数数查询菜品信息-->
+    <select id="selectRankInfoBylikes" resultType="com.bean.Dish">
+                SELECT * FROM dish ORDER BY likes DESC LIMIT 3;
+    </select>
+</mapper>

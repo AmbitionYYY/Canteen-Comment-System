@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.MessageDao">
+    <insert id="insertMessage" parameterType="com.bean.Message">
+        insert into message (feedbackTitle,address,email,phoneNumber,qq,userid,feedbackContent,createtime,ResolveType)
+         values (#{feedbackTitle},#{address},#{email},#{phoneNumber},#{qq},#{userid},#{feedbackContent},#{createtime},#{ResolveType})
+    </insert>
+
+<!--    根据用户名查反馈信息-->
+    <select id="selectMessageByUsername" parameterType="integer" resultType="com.bean.Message">
+        select * from message where userid=#{userid}
+    </select>
+</mapper>
