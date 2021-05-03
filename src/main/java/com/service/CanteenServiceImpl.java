@@ -88,9 +88,20 @@ public class CanteenServiceImpl implements CanteenService {
         return arrayList;
     }
 
+    /**
+     * @Description 返回菜品平均评分
+     * @Author JXY
+     * @Date 19:58 2021/5/3
+     * @param
+     * @return
+     **/
     @Override
     public double queryAvgScore(Integer dishid) {
-        double avgScore = canteenDao.selectAvgScore(dishid);
+        int number = canteenDao.checkCommentNull(dishid);
+        double avgScore=0;
+        if (number>0){
+             avgScore = canteenDao.selectAvgScore(dishid);
+        }
         return avgScore;
     }
 }

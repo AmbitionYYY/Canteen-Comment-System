@@ -52,10 +52,14 @@
 
 <!--    查询菜品的平均分-->
 <select id="selectAvgScore" parameterType="integer" resultType="double">
-        SELECT ROUND(AVG(score),2) AS '综合评分' FROM COMMENT WHERE  dishid=#{dishid}
+     SELECT ROUND(AVG(score),2) AS '综合评分' FROM COMMENT WHERE  dishid=#{dishid}
 </select>
 <!--    根据点赞数数查询菜品信息-->
     <select id="selectRankInfoBylikes" resultType="com.bean.Dish">
                 SELECT * FROM dish ORDER BY likes DESC LIMIT 3;
+    </select>
+<!--    查询菜品的评分是否为空-->
+    <select id="checkCommentNull" parameterType="integer" resultType="integer">
+        select count(1) from comment where dishid=#{dishid}
     </select>
 </mapper>

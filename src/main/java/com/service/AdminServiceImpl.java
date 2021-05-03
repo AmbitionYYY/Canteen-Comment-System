@@ -34,13 +34,13 @@ public class AdminServiceImpl implements AdminService {
 
     //    查询并展示所有菜品信息
     @Override
-    public PageInfo<Dish> queryAllDishes(Integer currentPage) {
+    public PageInfo<Dish> queryAllDishes(Integer currentPage,String dishName) {
 // ***********使用分页插件必须遵守一下顺序**********
 
 //      1.  设置当前页和每页显示的数据条数
         PageHelper.startPage(currentPage, 3);
 //      2.  调用持久层方法
-        List<Dish> dishList = adminDao.selectAllDishes();
+        List<Dish> dishList = adminDao.selectAllDishes(dishName);
 //      3.  设置PageInfo对象，第二个对象是页面上显示的页码数量
         PageInfo<Dish> pageInfo = new PageInfo<>(dishList, 10);
         return pageInfo;

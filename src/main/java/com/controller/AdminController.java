@@ -28,7 +28,6 @@ public class AdminController {
     //    管理员登录界面展示
     @RequestMapping("admin-login-show")
     public String adminLoginShow(@ModelAttribute("flag") String flag, Model model) {
-        System.out.println("进入了管理员登录界面！");
 //        flag的值要么为1要么为空
         model.addAttribute("flag", flag);
         return "/WEB-INF/views/admin/admin-login.jsp";
@@ -38,11 +37,9 @@ public class AdminController {
     //    管理员登录功能
     @RequestMapping("admin-login")
     public String adminLogin(Admin admin, RedirectAttributes attributes, HttpSession session) {
-        System.out.println(admin);
 //        admin为用户输入的管理员对象，ad或为空或为数据库中管理员对象
         Admin ad = adminService.queryAdminByAdminnameAndPwd(admin);
         if (ad != null) {
-            System.out.println("管理员用户密码正确！！进入管理界面！！");
             session.setAttribute("loginAdmin", ad);
             session.setAttribute("name", ad.getAdminname());
             return "/WEB-INF/views/admin/admin-index.jsp";
@@ -55,15 +52,9 @@ public class AdminController {
 
     //    菜品管理界面展示
     @RequestMapping("dishes-manage-show")
-    public String dishesShow(@RequestParam(defaultValue = "1") Integer currentPage,String selectedCanteen, Model model) {
-//        System.out.println(selectedCanteen);
-        /*if(selectedcanteen.equals("全部餐厅")){
-            System.out.println("全部餐厅啊啊啊");
-        }else {
-            System.out.println(selectedCanteen);
-        }*/
+    public String dishesShow(@RequestParam(defaultValue = "1") Integer currentPage,String dishName, Model model) {
 
-        PageInfo<Dish> pageInfo = adminService.queryAllDishes(currentPage);
+        PageInfo<Dish> pageInfo = adminService.queryAllDishes(currentPage,dishName);
 //     未分页时测试语句代码  List<Dish> dishes =adminService.queryAllDishes();
         model.addAttribute("pageInfo", pageInfo);
         return "/WEB-INF/views/admin/dishes-manage-show.jsp";
@@ -82,16 +73,15 @@ public String commentsAudit(@RequestParam(defaultValue = "1") Integer currentPag
 @ResponseBody
 @RequestMapping("viewComments")
 public List<Comment> viewCommentsBydishId(Integer dishId){
-        System.out.println("传来的Dishid为："+dishId);
+//        System.out.println("传来的Dishid为："+dishId);
         List<Comment> commentList= canteenService.queryCommentInfoByDishid(dishId);
-        System.out.println(commentList);
+//        System.out.println(commentList);
         return commentList;
 }
 
 //删除某菜品的某评论
     @RequestMapping("delComment")
     public String delCommentBycommentId(Integer commentId){
-//        System.out.println("删除的commentID为"+commentId);
         adminService.removeCommentBycommentId(commentId);
         return "redirect:/admin/commentsAudit";
     }
@@ -149,10 +139,10 @@ public List<Comment> viewCommentsBydishId(Integer dishId){
      * @return
      **/
     @RequestMapping("/delMessage")
-    public String delMessage(@RequestParam(value = "mid") int mid){
-        System.out.println(mid);
+    public String delMessage(@RequestParam(value = "mid") Integer mid){
         adminService.delMessageByMid(mid);
-        return "redirect:/admin/resolveMessage";
+//        return "redirect:/admin/resolveMessage";
+        return "/admin/resolveMessage";
     }
 
     //跳转到首页

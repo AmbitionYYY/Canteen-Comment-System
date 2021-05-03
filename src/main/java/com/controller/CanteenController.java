@@ -82,7 +82,6 @@ public class CanteenController {
         Dish dish = canteenService.queryDishInfoByDishid(dishid);
 //      返回菜品的平均分
         double avgScore = canteenService.queryAvgScore(dishid);
-
 //        通过dish查询Comment信息返回给页面
         List<Comment> commentList = canteenService.queryCommentInfoByDishid(dishid);
 

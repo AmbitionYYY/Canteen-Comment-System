@@ -36,7 +36,7 @@
         <div class="am-cf am-padding am-padding-bottom-0">
             <div class="am-fl am-cf">
                 <strong class="am-text-primary am-text-lg">编辑菜品</strong> /
-                <small>add-dish</small>
+                <small>edit-dish</small>
             </div>
         </div>
 
@@ -49,12 +49,12 @@
 
             <div class="am-tabs-bd">
                 <div class="am-tab-panel am-fade am-in am-active" id="tab1">
-                    <form action="${pageContext.request.contextPath}/dish/edit-DishInfo" method="post"
+                    <form id="edit_form" action="${pageContext.request.contextPath}/dish/edit-DishInfo" method="post"
                           enctype="multipart/form-data">
 
                         菜品名称：<input name="name" value="${dish.name}"><br>
                         <p></p>
-                        菜品价格：<input name="price" value="${dish.price}"><br>
+                        菜品价格：<input id="price" name="price" value="${dish.price}"><br>
                         <p></p>
                         选择餐厅:
                         <%--                 ****************** 有问题！！！！！！*************--%>
@@ -78,7 +78,7 @@
                             </c:choose>
                         </select><br>
                         <p></p>
-                        菜品窗口：<input name="loc_Window" value="${dish.loc_Window}"><br>
+                        菜品窗口：<input name="loc_Window" id="loc_Window" value="${dish.loc_Window}"><br>
                         <p></p>
                         选择上传菜品图片：
                         <div class="am-form-group am-form-file">
@@ -98,7 +98,7 @@
 
                         <textarea name="discription" rows="3" cols="50" id="doc-ta-1">${dish.discription}</textarea>
                         <div class="am-margin">
-                            <button type="submit" class="am-btn am-btn-primary am-btn-xs">确认修改菜品信息</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button type="button" onclick="javascript:submitEdit_form()" class="am-btn am-btn-primary am-btn-xs">确认修改菜品信息</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <button type="button" onclick="javascript:toDishesManagePage()"
                                     class="am-btn am-btn-primary am-btn-xs">返回
                             </button>
@@ -133,6 +133,23 @@
 <script type="text/javascript">
     function toDishesManagePage() {
         location.href = "${pageContext.request.contextPath}/admin/dishes-manage-show";
+    }
+    function submitEdit_form() {
+        //添加是否含中文校验
+        var price= $("#price").val();
+        var loc_Window= $("#loc_Window").val();
+        if (!isChineseChar(loc_Window)&&!isChineseChar(price)){
+            $("#edit_form").submit();
+        }else {
+            alert("菜品价格以及菜品售卖窗口中不允许出现中文字符！");
+        }
+    }
+
+
+    //是否含中文校验
+    function isChineseChar(str) {
+        var  reg = /[\u4E00-\u9FA5\uF900-\uFA2D]/;
+        return  reg.test(str);
     }
 </script>
 </html>

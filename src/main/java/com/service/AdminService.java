@@ -13,7 +13,7 @@ public interface AdminService {
 
     public Admin queryAdminByAdminnameAndPwd(Admin admin);
 
-    public PageInfo<Dish> queryAllDishes(Integer currentPage);
+    public PageInfo<Dish> queryAllDishes(Integer currentPage,String dishName);
 
     void removeCommentBycommentId(Integer commentId);
 

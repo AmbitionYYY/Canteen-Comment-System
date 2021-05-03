@@ -48,11 +48,11 @@
 
             <div class="am-tabs-bd">
                 <div class="am-tab-panel am-fade am-in am-active" id="tab1">
-                    <form action="${pageContext.request.contextPath}/dish/add-dish" method="post"
+                    <form id="add_form" action="${pageContext.request.contextPath}/dish/add-dish" method="post"
                           enctype="multipart/form-data">
-                        菜品名称：<input name="name" placeholder="请输入菜品名称"><br>
+                        菜品名称：<input name="name" required placeholder="请输入菜品名称"><br>
                         <p></p>
-                        菜品价格：<input name="price" placeholder="请输入菜品价格"><br>
+                        菜品价格：<input id="price" required name="price" placeholder="请输入菜品价格"><br>
                         <p></p>
                         选择餐厅:
                         <select name="loc_Canteen" data-am-selected="{btnSize: 'sm'}">
@@ -61,7 +61,7 @@
                             <option value="第三餐厅">第三餐厅</option>
                         </select><br>
                         <p></p>
-                        菜品窗口：<input name="loc_Window" placeholder="请输入菜品售卖窗口"><br>
+                        菜品窗口：<input id="loc_Window" required name="loc_Window" placeholder="请输入菜品售卖窗口"><br>
                         <p></p>
                         选择上传菜品图片：
                         <div class="am-form-group am-form-file">
@@ -78,7 +78,7 @@
 
                         <textarea name="discription" rows="3" cols="50" id="doc-ta-1"></textarea>
                         <div class="am-margin">
-                            <button type="submit" class="am-btn am-btn-primary am-btn-xs">提交菜品信息</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button type="button" onclick="javascript:submitAdd_form()" class="am-btn am-btn-primary am-btn-xs">提交菜品信息</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <button type="button" onclick="javascript:toDishesManagePage()"
                                     class="am-btn am-btn-primary am-btn-xs">返回
                             </button>
@@ -114,6 +114,34 @@
     function toDishesManagePage() {
         location.href = "${pageContext.request.contextPath}/admin/dishes-manage-show";
     }
+
+    function submitAdd_form() {
+            //添加是否含中文校验
+            var price= $("#price").val();
+            var loc_Window= $("#loc_Window").val();
+            if (!isChineseChar(loc_Window)&&!isChineseChar(price)){
+                $("#add_form").submit();
+            }else {
+                alert("菜品价格以及菜品售卖窗口中不允许出现中文字符！");
+            }
+    }
+    //是否含中文校验
+    function isChineseChar(str) {
+        var  reg = /[\u4E00-\u9FA5\uF900-\uFA2D]/;
+        return  reg.test(str);
+    }
+
+    function stripscript(s)
+    {
+        var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]")
+        var rs = "";
+        for (var i = 0; i < s.length; i++) {
+            rs = rs+s.substr(i, 1).replace(pattern, '');
+        }
+        return rs;
+    }
+
+
 </script>
 </html>
 

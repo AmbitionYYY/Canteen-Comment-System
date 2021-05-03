@@ -93,7 +93,8 @@
                                         <%--<form id="delMessageForm" action="${pageContext.request.contextPath}/admin/delMessage"  method="post">
                                             <input hidden name="mid" value="${message.mid}">
                                         </form>--%>
-                                        <button onclick="javascript:delMessage(${message.mid})" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 反馈问题已解决</button>
+<%--                                        <button onclick="javascript:delMessage(${message.mid})" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 反馈问题已解决</button>--%>
+                                    <a class="am-btn am-btn-default am-btn-xs am-text-secondary" href="${pageContext.request.contextPath}/admin/delMessage?mid=${message.mid}">反馈问题已解决</a>
                                     </div>
                                 </div>
                             </td>
@@ -169,15 +170,12 @@
                  }
       function delMessage(mid) {
 
-         /* var url="${pageContext.request.contextPath}/admin/delMessage?mid="+mid;
-          alert(url)
-          window.location.href=url;*/
-          var request=new XMLHttpRequest();
-          var url="${pageContext.request.contextPath}/admin/delMessage?mid="+mid;
-            request.open("GET",url);
-            request.send(null);
+          /*var url="${pageContext.request.contextPath}/admin/delMessage?mid="+mid;
+          location.href=url;*/
+
+
         /* $.ajax({
-             type:"GET",
+             type:"POST",
              url:"${pageContext.request.contextPath}/admin/delMessage",
              data:{mid:mid},
              success:function (data) {

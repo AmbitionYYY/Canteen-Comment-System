@@ -63,21 +63,12 @@
                     </div>
                 </div>
             </div>
-            <div class="am-u-sm-12 am-u-md-3">
-                <div class="am-form-group">
-                    <select id="selectCanteen" data-am-selected="{btnSize: 'sm'}">
-                        <option value="全部餐厅">全部餐厅</option>
-                        <option value="第一餐厅">第一餐厅</option>
-                        <option value="第二餐厅">第二餐厅</option>
-                        <option value="第三餐厅">第三餐厅</option>
-                    </select>
-                </div>
-            </div>
+
             <div class="am-u-sm-12 am-u-md-3">
                 <div class="am-input-group am-input-group-sm">
-                    <input type="text" class="am-form-field">
+                    <input type="text" id="inputDishName" class="am-form-field">
                     <span class="am-input-group-btn">
-            <button class="am-btn am-btn-default" onclick="javascript:searchCanteen()" type="button">搜索</button>
+            <button class="am-btn am-btn-default" onclick="javascript:searchAndPage(1)" type="button">搜索</button>
           </span>
                 </div>
             </div>
@@ -174,7 +165,7 @@
                         </div>
                     </div>
                     <hr/>
-                    <p>注：道可道，非常道。</p>
+                    <p>欢迎使用衡水学院校园餐厅点评管理系统</p>
                 </form>
             </div>
 
@@ -185,6 +176,7 @@
 <%--隐藏表单，用于添加各种数据--%>
 <form action="${pageContext.request.contextPath}/admin/dishes-manage-show" id="hidForm" method="post">
 <input type="hidden" name="currentPage" id="currentPage">
+<input type="hidden" name="dishName" id="dishName">
 <%--    <input type="hidden" name="selectedCanteen" id="selectedCanteen">--%>
 </form>
 </body>
@@ -202,20 +194,13 @@
     function searchAndPage(currentPage) {
         //给隐藏框设置值
         $("#currentPage").val(currentPage);
-
+        //根据餐厅号来查询菜品
+        var inputDishName=$("#inputDishName").val();
+        $("#dishName").val(inputDishName);
+        // var dishName= document.getElementById("dishName").value;
         //表单提交
         $("#hidForm").submit();
     }
-
-    //搜索功能
-    function searchCanteen() {
-        //根据餐厅号来查询菜品
-        var selectedCanteen;
-        selectedCanteen=$("#selectCanteen").val()
-        //获取了参数，应提交到controller中查询出对于的数据，返回到页面
-        alert(selectedCanteen);
-    }
-
 
 
     <%--    跳转到添加菜品界面--%>

@@ -9,9 +9,14 @@
         select adminname,adminpassword from admin where adminname=#{adminname}
     </select>
     <!--使用分页插件查菜品数据信息：实际上是按页数从数据库中查取数据显示，每换个页数查一次-->
-    <select id="selectAllDishes" resultType="com.bean.Dish">
+    <select id="selectAllDishes" resultType="com.bean.Dish" parameterType="string">
         SELECT dishid ,name ,avatar , price ,loc_Canteen ,loc_Window , discription , likes , comments  FROM
         dish
+        <where>
+            <if test="_parameter!=null">
+                name like CONCAT('%',#{dishName},'%')
+            </if>
+        </where>
     </select>
 <!--    删除评论-->
     <delete id="deleteCommentBycommentId" parameterType="integer">

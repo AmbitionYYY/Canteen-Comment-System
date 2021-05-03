@@ -8,7 +8,7 @@ import java.util.List;
 public interface AdminDao {
     public Admin selectAdminByAdminname(String adminname);
 
-    public List<Dish> selectAllDishes();
+    public List<Dish> selectAllDishes(@RequestParam("dishName")String dishName);
 
     void deleteCommentBycommentId(@RequestParam("commentId") Integer commentId);
 

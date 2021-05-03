@@ -19,7 +19,7 @@
             <img src="${pageContext.request.contextPath}/assets/img/secondCanteen1.png" class="imga">
             <img src="${pageContext.request.contextPath}/assets/img/firstCanteen1.png" class="imga">
         </div>
-        <ul class="title">
+        <ul style="width: 63px" class="title">
             <li class="nr active"></li>
             <li class="nr"></li>
             <li class="nr"></li>
@@ -29,7 +29,7 @@
 <nav >
     <h3>校园公告</h3>
     <p id="Announcementmsg">当前无校园公告</p>
-   <p>发布日期： <span id="Announcementtime"></span></p>
+   <p>发布日期： <span id="Announcementtime">无</span></p>
 </nav>
 <div class="wrap">
     <h3>特性服务</h3>
@@ -92,29 +92,32 @@
             href="${pageContext.request.contextPath}/user/user-logout">注销用户</a></p>
 </footer>
 <%--尾部结束--%>
-<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/index.js">
-</script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/nav.js">
-</script>
+</body>
 <script type="text/javascript">
-    window.onload=function() {
+    $(function(){
         var announcementmsg;
         var announcementtime;
-       $.ajax({
+        $.ajax({
             url:"${pageContext.request.contextPath}/user/loadAnnouncement",
             dataType:"json",
             type:"get",
             success:function(data){
-               announcementmsg= data.announcement;
-               announcementtime=data.createtime;
-               $("#Announcementmsg").text(announcementmsg);
-               $("#Announcementtime").text(announcementtime);
+                announcementmsg= data.announcement;
+                announcementtime=data.createtime;
+                $("#Announcementmsg").text(announcementmsg);
+                $("#Announcementtime").text(announcementtime);
             },
             error:function () {
                 console.log("未知错误！");
             }
         })
-    }
+    })
+
+
+
 </script>
-</body>
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/index.js">
+</script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/nav.js">
+</script>
 </html>

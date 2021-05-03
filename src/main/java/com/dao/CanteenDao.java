@@ -33,4 +33,6 @@ void updateDishInfo(Integer dishId);
     ArrayList selectrankScore();
 
     double selectAvgScore(Integer dishid);
+
+    int checkCommentNull(Integer dishid);
 }
