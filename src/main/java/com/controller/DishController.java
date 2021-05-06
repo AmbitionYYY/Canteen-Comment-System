@@ -75,7 +75,7 @@ public class DishController {
             dish.setAvatar(oname);
 //            如果没上传头像则使用固定头像
         } else {
-            dish.setAvatar("f.jpg");
+            dish.setAvatar("pu1.jpg");
         }
         dishService.editDishInfo(dish);
         System.out.println("修改后的dish信息为：" + dish);

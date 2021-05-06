@@ -16,7 +16,7 @@
 
     <update id="updateDishInfo" parameterType="com.bean.Dish">
         update dish set
-        name=#{name},avatar=#{avatar},price=#{price},loc_Canteen=#{loc_Canteen},loc_Window=#{loc_Window},discription=#{discription},likes=#{likes},comments=#{comments}
+        name=#{name},avatar=#{avatar},price=#{price},loc_Canteen=#{loc_Canteen},loc_Window=#{loc_Window},discription=#{discription}
         where dishid=#{dishid}
     </update>
 

@@ -39,10 +39,9 @@ public class UserController {
     @RequestMapping("user-register")
     public String UserRegister(User user) {
         if (user != null && !user.equals("")) {
-            System.out.println(user);
             userService.saveUser(user);
         } else {
-            System.out.println("发生未知错误！！");
+            System.out.println("输入的用户信息有误！！");
         }
         return "/WEB-INF/views/user/user-register-success.jsp";
     }

@@ -1,9 +1,6 @@
 package com.service;
 
-import com.bean.Admin;
-import com.bean.Announcement;
-import com.bean.Dish;
-import com.bean.Message;
+import com.bean.*;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
@@ -22,4 +19,8 @@ public interface AdminService {
      PageInfo<Message> queryMessage(Integer currentPage);
 
     void delMessageByMid(int mid);
+
+    List<User> queryAllUnregisterUsers();
+
+    void passRegister(Integer userid);
 }

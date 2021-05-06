@@ -133,7 +133,7 @@
 
 
 <script src="${pageContext.request.contextPath}/assets/js/jquery.min.js"></script>
-<script>
+<script type="text/javascript">
     // 开始实现五星打分功能
     var obj, aMsg = [
         "很不满意|差得太离谱，与餐厅描述的严重不符，非常不满",
@@ -177,9 +177,35 @@
         if(content==""|| content==null){
             alert("评论内容不能为空！！")
         }else {
+            filter();
             $("#dishid").val(dishid);
             $("#commentform").submit();
         }
+    }
+    
+//    评论信息敏感词过滤
+    function filter() {
+// 获取输入框的内容inputContent
+        var inputContent = document.getElementById("commentcontent");
+        console.info(inputContent.value);
+        // 多个敏感词，这里直接以数组的形式展示出来
+        var arrMg = ["辣鸡","垃圾", "tmd", "他妈的","混蛋"];
+
+        // 显示的内容--showContent
+        var showContent = inputContent.value;
+        showContent=showContent.toString();
+        // 正则表达式
+        // \d 匹配数字
+
+        for (var i = 0; i < arrMg.length; i++) {
+
+            // 创建一个正则表达式
+            var r = new RegExp(arrMg[i], "ig");
+            showContent = showContent.replace(r, "*");
+        }
+        // 显示的内容--showInput
+        $("#commentcontent").val(showContent);
+        console.info(showContent);
     }
 </script>
 </body>

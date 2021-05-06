@@ -53,4 +53,13 @@
     <update id="removeMessageByMid">
         update message set ResolveType = 1 where mid=#{mid};
     </update>
+
+<!--    查询所有未注册的用户列表-->
+    <select id="selectAllUnregisterUsers" resultType="com.bean.User">
+        select *  FROM USER WHERE flag=0
+    </select>
+<!--    通过注册-->
+    <update id="passRegisterUser" parameterType="integer">
+        update user set flag=1 where userid=#{userid}
+    </update>
 </mapper>

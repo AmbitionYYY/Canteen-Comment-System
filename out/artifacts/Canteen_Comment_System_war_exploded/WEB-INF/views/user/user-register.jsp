@@ -82,7 +82,7 @@
                 <input type="text" name="profession" id="profession" placeholder="请输入你的专业">
                 <br>
                 <label for="motto">座右铭:</label>
-                <input type="text" name="motto" id="motto" placeholder="随便说点什么吧...我啪的一下就点提交了，很快啊！">
+                <input type="text" name="motto" id="motto" placeholder="随便说点什么吧...">
                 <br>
                 <input type="hidden" name="avatar" id="avatar" value="dog.jpg">
                 <div class="am-cf">

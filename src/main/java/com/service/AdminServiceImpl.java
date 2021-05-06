@@ -84,5 +84,15 @@ public class AdminServiceImpl implements AdminService {
         adminDao.removeMessageByMid(mid);
     }
 
+    @Override
+    public List<User> queryAllUnregisterUsers() {
+        List<User> unregisterUsers = adminDao.selectAllUnregisterUsers();
+        return unregisterUsers;
+    }
+
+    @Override
+    public void passRegister(Integer userid) {
+        adminDao.passRegisterUser(userid);
+    }
 
 }

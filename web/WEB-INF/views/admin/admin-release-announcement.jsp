@@ -50,7 +50,7 @@
         <li class="nav-lists"><a style="color: white"
         <li class="nav-lists"><a style="color: white" href="${pageContext.request.contextPath}/admin/releaseAnnouncement">校园公告</a></li>
         <li class="nav-lists"><a style="color: white" href="${pageContext.request.contextPath}/admin/resolveMessage">反馈处理</a></li>
-        <li class="nav-lists"><a href="master.html"></a></li>
+        <li class="nav-lists"><a style="color: white" href="${pageContext.request.contextPath}/admin/userRegister">用户注册</a></li>
         <li style="width: 230px"><a style="color: white" href="javascript:">欢迎您：&nbsp;&nbsp;&nbsp;<span
                 style="color: #0e90d2;font-size: larger " class="am-badge am-badge-warning">${sessionScope.name}</span></a>
         </li>

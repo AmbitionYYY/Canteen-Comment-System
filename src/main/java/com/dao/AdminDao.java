@@ -20,4 +20,8 @@ public interface AdminDao {
     List<Message> selectMessage();
 
     void removeMessageByMid(int mid);
+
+    List<User> selectAllUnregisterUsers();
+
+    void passRegisterUser(Integer userid);
 }
